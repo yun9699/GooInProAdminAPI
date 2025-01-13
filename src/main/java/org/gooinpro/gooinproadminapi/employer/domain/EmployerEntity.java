@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
