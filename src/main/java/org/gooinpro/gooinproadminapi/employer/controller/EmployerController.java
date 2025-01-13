@@ -2,6 +2,7 @@ package org.gooinpro.gooinproadminapi.employer.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.gooinpro.gooinproadminapi.employer.service.Employerservice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,4 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RequiredArgsConstructor
 public class EmployerController {
+
+    private final Employerservice employerservice;
 }
