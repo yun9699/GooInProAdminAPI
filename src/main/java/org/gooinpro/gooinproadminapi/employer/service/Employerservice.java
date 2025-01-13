@@ -18,15 +18,9 @@ public class Employerservice {
 
     private final EmployerRepository employerRepository;
 
-    //승인 된 고용인 리스트 get
-    public PageResponseDTO<EmployerListDTO> approvedEmployerListService(PageRequestDTO pageRequestDTO) {
+    //고용인 리스트 get
+    public PageResponseDTO<EmployerListDTO> employerListService(PageRequestDTO pageRequestDTO) {
 
-        return employerRepository.approvedEmployerList(pageRequestDTO);
-    }
-
-    //승인되지 않은 고용인 리스트 get
-    public PageResponseDTO<EmployerListDTO> notApprovedEmployerListService(PageRequestDTO pageRequestDTO) {
-
-        return employerRepository.notApprovedEmployerList(pageRequestDTO);
+        return employerRepository.employerList(pageRequestDTO);
     }
 }
