@@ -2,6 +2,7 @@ package org.gooinpro.gooinproadminapi.jobPostings.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -9,7 +10,6 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -19,6 +19,10 @@ public class JobPostingsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jpno;  //PK
+
+    @JoinColumn(name = "eno")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private EmployerEntity employer;   //FK - Employer
 
     @Column(nullable = false)
     private String jpname;  //name

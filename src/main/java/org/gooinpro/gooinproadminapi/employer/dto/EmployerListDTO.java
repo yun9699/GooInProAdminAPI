@@ -8,6 +8,10 @@ import java.sql.Timestamp;
 @Data
 public class EmployerListDTO {
 
+    private Long eno;
+
+    private String eemail;
+
     private String ename;
 
     private Date ebirth;
