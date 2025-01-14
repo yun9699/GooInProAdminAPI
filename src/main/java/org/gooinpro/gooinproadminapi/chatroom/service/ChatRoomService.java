@@ -3,7 +3,8 @@ package org.gooinpro.gooinproadminapi.chatroom.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.gooinpro.gooinproadminapi.chatroom.domain.ChatRoomEntity;
-import org.gooinpro.gooinproadminapi.chatroom.dto.AddChatRoomDTO;
+import org.gooinpro.gooinproadminapi.chatroom.dto.ChatRoomAddDTO;
+import org.gooinpro.gooinproadminapi.chatroom.dto.ChatRoomGetDTO;
 import org.gooinpro.gooinproadminapi.chatroom.repository.ChatRoomRepository;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.repository.EmployerRepository;
@@ -22,15 +23,40 @@ public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
     private final EmployerRepository employerRepository;
 
-    public String addChatRoom(AddChatRoomDTO addChatRoomDTO) {
+    public ChatRoomGetDTO findChatRoom(Long eno) {
 
-        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByEmployer_Eno(addChatRoomDTO.getEno());
+        // 채팅방이 있는지 확인
+        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
 
         if (existingChatRoom.isPresent()) {
-            return "Chat Room Already Exists";
+            // 채팅방 있으면 그냥 채팅방 반환
+            return chatRoomRepository.GetRoomNumber(eno);
+        } else {
+            // 채팅방이 안만들어져있으면 아래에 있는 ChatRoomAdd 실행됨
+            ChatRoomAddDTO chatRoomaddDTO = new ChatRoomAddDTO();
+            chatRoomaddDTO.setEno(eno);
+
+            addChatRoom(chatRoomaddDTO);
+
+            // 새 채팅방이 생성된 후, 방번호를 가져오기
+            Optional<ChatRoomEntity> newChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
+
+            Long newEno = newChatRoom.get().getRid();
+
+            return chatRoomRepository.GetRoomNumber(newEno);
         }
 
-        Optional<EmployerEntity> eno = employerRepository.findByEno(addChatRoomDTO.getEno());
+    }
+
+    public String addChatRoom(ChatRoomAddDTO chatRoomAddDTO) { // 채팅방 새로 만들기
+
+        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByEmployer_Eno(chatRoomAddDTO.getEno());
+
+        if (existingChatRoom.isPresent()) {
+            return "Already existing chat room";
+        }
+
+        Optional<EmployerEntity> eno = employerRepository.findByEno(chatRoomAddDTO.getEno());
 
         ChatRoomEntity chatRoomEntity = ChatRoomEntity.builder()
                 .employer(eno.get())
@@ -41,6 +67,7 @@ public class ChatRoomService {
         return "success add chat room";
 
     }
+
 
 
 }

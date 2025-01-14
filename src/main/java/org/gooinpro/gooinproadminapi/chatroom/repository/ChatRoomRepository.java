@@ -5,6 +5,7 @@ import org.gooinpro.gooinproadminapi.chatroom.domain.ChatRoomEntity;
 import org.gooinpro.gooinproadminapi.chatroom.repository.search.ChatRoomSearch;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
 import java.util.Optional;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long>, ChatRoomSearch {
