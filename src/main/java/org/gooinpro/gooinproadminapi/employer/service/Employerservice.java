@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
-import org.gooinpro.gooinproadminapi.employer.resptiroty.EmployerRepository;
+import org.gooinpro.gooinproadminapi.employer.repository.EmployerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
