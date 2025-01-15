@@ -41,4 +41,12 @@ public class JobPostingsController {
         log.info("JobPostingsController: read");
         return ResponseEntity.ok(jobPostingsService.jobPostingsReadService(jpno));
     }
+
+    //구인 공고 수 확인
+    @GetMapping("count")
+    public ResponseEntity<Integer> countController() {
+
+        log.info("JobPostingsController: count");
+        return ResponseEntity.ok(jobPostingsService.jobPostingsCountService());
+    }
 }

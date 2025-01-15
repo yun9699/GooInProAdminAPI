@@ -68,4 +68,10 @@ public class JobPostingsService {
                 .jpworkEndTime(jobPostings.getJpworkEndTime())
                 .build();
     }
+
+    //구인 공고 수 확인
+    public Integer jobPostingsCountService() {
+
+        return jobPostingsRepository.countByJpdelete(false);
+    }
 }

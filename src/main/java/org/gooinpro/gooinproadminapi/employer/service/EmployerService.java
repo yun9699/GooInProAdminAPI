@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Log4j2
-public class Employerservice {
+public class EmployerService {
 
     private final EmployerRepository employerRepository;
 
@@ -61,7 +61,7 @@ public class Employerservice {
     }
 
     //고용인 수 확인
-    public int employerCountService() {
+    public Integer employerCountService() {
 
         return employerRepository.countByEdelete(false);
     }
