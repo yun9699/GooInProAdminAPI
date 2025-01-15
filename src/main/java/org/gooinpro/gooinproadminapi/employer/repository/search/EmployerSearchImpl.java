@@ -1,4 +1,4 @@
-package org.gooinpro.gooinproadminapi.employer.resptiroty.search;
+package org.gooinpro.gooinproadminapi.employer.repository.search;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
@@ -37,6 +37,7 @@ public class EmployerSearchImpl extends QuerydslRepositorySupport implements Emp
 
         query.where(employer.eno.gt(0));
         query.where(employer.edelete.isFalse());
+        query.orderBy(employer.eno.desc());
 
         this.getQuerydsl().applyPagination(pageable, query);
 
