@@ -16,4 +16,6 @@ public class ChatMessageDTO {
     private String message;
 
     private Date timestamp;
+
+    private String roomId;
 }

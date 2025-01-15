@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/admin/api/v1/chatmessage")
 @RequiredArgsConstructor
 @Log4j2
 public class ChatController {
@@ -39,7 +40,8 @@ public class ChatController {
     @MessageMapping("/message")
     public ResponseEntity<Void> receiveMessage(@RequestBody ChatMessageDTO chat) {
         // 메시지를 해당 채팅방 구독자들에게 전송
-        template.convertAndSend("/sub/chatroom/1", chat);
+        Long roomId = Long.parseLong(chat.getRoomId());
+        template.convertAndSend("/sub/chatroom/" + roomId, chat);
         log.info("Sent message: {}", chat);
         return ResponseEntity.ok().build();
     }
@@ -50,7 +52,7 @@ public class ChatController {
         log.info("sendMessage called");
         log.info("----------------------------------------");
         // 메시지를 서비스로 전달하여 저장
-        ChatEntity savedMessage = chatService.saveMessage(chatMessageDTO.getUser(), chatMessageDTO.getMessage());
+        ChatEntity savedMessage = chatService.saveMessage(chatMessageDTO.getUser(), chatMessageDTO.getMessage(), chatMessageDTO.getRoomId());
         // 저장된 메시지 응답
         return ResponseEntity.ok(savedMessage);
     }

@@ -16,7 +16,7 @@ public class ChatRoomEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rid;
+    private Long rno;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eno")

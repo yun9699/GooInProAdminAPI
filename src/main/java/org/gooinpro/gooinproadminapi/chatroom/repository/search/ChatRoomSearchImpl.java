@@ -24,7 +24,7 @@ public class ChatRoomSearchImpl extends QuerydslRepositorySupport implements Cha
 
         JPQLQuery<ChatRoomGetDTO> dtojpqlQuery = query.select(
                 Projections.bean(ChatRoomGetDTO.class,
-                        chatroom.rid)
+                        chatroom.rno)
         );
 
         ChatRoomGetDTO chatRoomGet = dtojpqlQuery.fetchOne();

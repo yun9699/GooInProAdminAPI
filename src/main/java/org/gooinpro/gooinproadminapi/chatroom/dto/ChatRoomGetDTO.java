@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class ChatRoomGetDTO {
 
-    private Long rid;
+    private Long rno;
 
 }

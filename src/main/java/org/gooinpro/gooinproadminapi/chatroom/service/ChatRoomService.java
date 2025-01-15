@@ -41,7 +41,7 @@ public class ChatRoomService {
             // 새 채팅방이 생성된 후, 방번호를 가져오기
             Optional<ChatRoomEntity> newChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
 
-            Long newEno = newChatRoom.get().getRid();
+            Long newEno = newChatRoom.get().getRno();
 
             return chatRoomRepository.GetRoomNumber(newEno);
         }

@@ -25,6 +25,8 @@ public class ChatEntity {
 
     private Date timestamp;
 
+    private String roomId;
+
     @Override
     public String toString() { // test확인용
         return "ChatEntity{id='" + id + "', user='" + user + "', message='" + message + "', timestamp=" + timestamp + "}";
