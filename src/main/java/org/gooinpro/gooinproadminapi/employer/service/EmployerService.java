@@ -8,7 +8,7 @@ import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
-import org.gooinpro.gooinproadminapi.employer.resptiroty.EmployerRepository;
+import org.gooinpro.gooinproadminapi.employer.repository.EmployerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
