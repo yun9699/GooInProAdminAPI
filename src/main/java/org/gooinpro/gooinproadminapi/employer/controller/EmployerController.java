@@ -6,7 +6,7 @@ import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
-import org.gooinpro.gooinproadminapi.employer.service.Employerservice;
+import org.gooinpro.gooinproadminapi.employer.service.EmployerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class EmployerController {
 
-    private final Employerservice employerService;
+    private final EmployerService employerService;
 
     //고용인 리스트 get
     @GetMapping("list")
