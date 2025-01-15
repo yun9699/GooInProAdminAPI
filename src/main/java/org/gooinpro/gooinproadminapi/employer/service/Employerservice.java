@@ -49,7 +49,8 @@ public class Employerservice {
                 () -> new RuntimeException("Can't find employer with eno " + eno)
         );
 
-        EmployerReadDTO employerReadDTO = EmployerReadDTO.builder()
+        log.info("EmployerService: read");
+        return EmployerReadDTO.builder()
                 .ename(employer.getEname())
                 .ebirth(employer.getEbirth())
                 .egender(employer.isEgender())
@@ -57,9 +58,6 @@ public class Employerservice {
                 .eno(employer.getEno())
                 .eemail(employer.getEemail())
                 .build();
-
-        log.info("EmployerService: read");
-        return employerReadDTO;
     }
 
     //고용인 수 확인
