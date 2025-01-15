@@ -12,5 +12,7 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long>,
 
     Optional<ChatRoomEntity> findByEmployer_Eno(Long eno); // select * from chatroom join emp where eno = ?
 
+    Optional<ChatRoomEntity> findByPartTimer_Pno(Long pno); // select * from chatroom join part where pno = ?
+
 }
 

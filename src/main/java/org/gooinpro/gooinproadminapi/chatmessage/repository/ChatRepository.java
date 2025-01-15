@@ -12,4 +12,6 @@ public interface ChatRepository extends MongoRepository<ChatEntity, Long> {
 
     List<ChatEntity> findByUser(String user);
 
+    void deleteByRoomId(String roomId);
+
 }
