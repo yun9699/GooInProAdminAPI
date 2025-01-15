@@ -1,4 +1,4 @@
-package org.gooinpro.gooinproadminapi.employer.resptiroty.search;
+package org.gooinpro.gooinproadminapi.employer.repository.search;
 
 import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;

@@ -1,4 +1,4 @@
-package org.gooinpro.gooinproadminapi.employer.resptiroty.search;
+package org.gooinpro.gooinproadminapi.employer.repository.search;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
@@ -8,7 +8,6 @@ import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.domain.QEmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
-import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -37,6 +36,7 @@ public class EmployerSearchImpl extends QuerydslRepositorySupport implements Emp
 
         query.where(employer.eno.gt(0));
         query.where(employer.edelete.isFalse());
+        query.orderBy(employer.eno.desc());
 
         this.getQuerydsl().applyPagination(pageable, query);
 
