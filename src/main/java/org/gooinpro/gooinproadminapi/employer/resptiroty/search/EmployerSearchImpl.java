@@ -8,6 +8,7 @@ import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.domain.QEmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
+import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -42,11 +43,8 @@ public class EmployerSearchImpl extends QuerydslRepositorySupport implements Emp
         JPQLQuery<EmployerListDTO> tupleQuery = query.select(
                 Projections.bean(EmployerListDTO.class,
                         employer.eno,
-                        employer.eemail,
                         employer.ename,
-                        employer.egender,
-                        employer.ebirth,
-                        employer.eregdate
+                        employer.egender
                 )
         );
 

@@ -7,6 +7,7 @@ import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
+import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
 import org.gooinpro.gooinproadminapi.employer.resptiroty.EmployerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,8 @@ public class Employerservice {
     public String deleteEmployerService(Long eno) {
 
         EmployerEntity employer = employerRepository.findById(eno).orElseThrow(
-                () -> new RuntimeException("Can't find employer with eno " + eno));
+                () -> new RuntimeException("Can't find employer with eno " + eno)
+        );
 
         employer.setEdelete(true);
 
@@ -38,5 +40,25 @@ public class Employerservice {
 
         log.info("EmployerService: delete");
         return "Successfully_deleted_employer " + eno;
+    }
+
+    //고용인 상세 보기
+    public EmployerReadDTO employerReadService(Long eno) {
+
+        EmployerEntity employer = employerRepository.findById(eno).orElseThrow(
+                () -> new RuntimeException("Can't find employer with eno " + eno)
+        );
+
+        EmployerReadDTO employerReadDTO = EmployerReadDTO.builder()
+                .ename(employer.getEname())
+                .ebirth(employer.getEbirth())
+                .egender(employer.isEgender())
+                .eregdate(employer.getEregdate())
+                .eno(employer.getEno())
+                .eemail(employer.getEemail())
+                .build();
+
+        log.info("EmployerService: read");
+        return employerReadDTO;
     }
 }

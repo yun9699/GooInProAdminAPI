@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
+import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
 import org.gooinpro.gooinproadminapi.employer.service.Employerservice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,14 @@ public class EmployerController {
 
         log.info("EmployerController: delete");
         return ResponseEntity.ok(employerservice.deleteEmployerService(eno));
+    }
+
+    //고용인 상세 보기
+    @GetMapping("read/{eno}")
+    public ResponseEntity<EmployerReadDTO> readController(@PathVariable Long eno) {
+
+        log.info("EmployerController: read");
+        return ResponseEntity.ok(employerservice.employerReadService(eno));
     }
 
 }
