@@ -36,9 +36,6 @@ public class EmployerEntity {
     @Column(columnDefinition = "boolean default false", nullable = false)
     private boolean edelete = false;    //delflag(true = deleted)
 
-    @Column(columnDefinition = "boolean default false", nullable = false)
-    private boolean eapproved = false;  //승인 여부(false = not Approved)
-
     @Column(columnDefinition = "timestamp default now()", nullable = false)
     private Timestamp eregdate; //등록 시간
 }

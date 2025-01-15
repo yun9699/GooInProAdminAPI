@@ -10,4 +10,6 @@ public interface EmployerRepository extends JpaRepository<EmployerEntity, Long>,
 
     Optional<EmployerEntity> findByEno(Long eno);
 
+
+    Integer countByEdelete(boolean edelete);    //edelete 칼럼에 따른 count
 }

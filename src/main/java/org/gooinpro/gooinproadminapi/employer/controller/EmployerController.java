@@ -5,11 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
-import org.gooinpro.gooinproadminapi.employer.service.Employerservice;
+import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
+import org.gooinpro.gooinproadminapi.employer.service.EmployerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/api/v1/employer")
@@ -17,22 +16,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EmployerController {
 
-    private final Employerservice employerservice;
+    private final EmployerService employerService;
 
-    //승인 된 고용인 리스트 get
-    @GetMapping("approvedList")
-    public ResponseEntity<PageResponseDTO<EmployerListDTO>> approvedListController(
+    //고용인 리스트 get
+    @GetMapping("list")
+    public ResponseEntity<PageResponseDTO<EmployerListDTO>> listController(
             PageRequestDTO pageRequestDTO) {
 
-        return ResponseEntity.ok(employerservice.approvedEmployerListService(pageRequestDTO));
+        log.info("EmployerController: getList");
+        return ResponseEntity.ok(employerService.employerListService(pageRequestDTO));
     }
 
-    //승인되지 않은 고용인 리스트 get
-    @GetMapping("notApprovedList")
-    public ResponseEntity<PageResponseDTO<EmployerListDTO>> notApprovedListController(
-            PageRequestDTO pageRequestDTO
-    ) {
+    //고용인 강제 삭제
+    @PutMapping("delete/{eno}")
+    public ResponseEntity<String> deleteController(@PathVariable Long eno) {
 
-        return ResponseEntity.ok(employerservice.notApprovedEmployerListService(pageRequestDTO));
+        log.info("EmployerController: delete");
+        return ResponseEntity.ok(employerService.deleteEmployerService(eno));
+    }
+
+    //고용인 상세 보기
+    @GetMapping("read/{eno}")
+    public ResponseEntity<EmployerReadDTO> readController(@PathVariable Long eno) {
+
+        log.info("EmployerController: read");
+        return ResponseEntity.ok(employerService.employerReadService(eno));
+    }
+
+    //고용인 수 확인
+    @GetMapping("count")
+    public ResponseEntity<Integer> countController() {
+
+        log.info("EmployerController: count");
+        return ResponseEntity.ok(employerService.employerCountService());
     }
 }

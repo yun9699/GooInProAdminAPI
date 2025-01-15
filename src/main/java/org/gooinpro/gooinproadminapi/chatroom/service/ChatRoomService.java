@@ -19,7 +19,6 @@ import java.util.Optional;
 @Log4j2
 public class ChatRoomService {
 
-
     private final ChatRoomRepository chatRoomRepository;
     private final EmployerRepository employerRepository;
 
@@ -32,20 +31,22 @@ public class ChatRoomService {
             // 채팅방 있으면 그냥 채팅방 반환
             return chatRoomRepository.GetRoomNumber(eno);
         } else {
-            // 채팅방이 안만들어져있으면 아래에 있는 ChatRoomAdd 실행됨
-            ChatRoomAddDTO chatRoomaddDTO = new ChatRoomAddDTO();
-            chatRoomaddDTO.setEno(eno);
+            // 채팅방이 없으면 생성하고 방 번호를 가져오기
+            ChatRoomAddDTO chatRoomAddDTO = new ChatRoomAddDTO();
+            chatRoomAddDTO.setEno(eno);
 
-            addChatRoom(chatRoomaddDTO);
+            addChatRoom(chatRoomAddDTO); // 채팅방 생성
 
-            // 새 채팅방이 생성된 후, 방번호를 가져오기
+            // DB에 반영 후 바로 조회하기 위해 saveAndFlush 사용
             Optional<ChatRoomEntity> newChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
 
-            Long newEno = newChatRoom.get().getRno();
-
-            return chatRoomRepository.GetRoomNumber(newEno);
+            if (newChatRoom.isPresent()) {
+                Long newEno = newChatRoom.get().getRno();
+                return chatRoomRepository.GetRoomNumber(newEno);
+            } else {
+                throw new RuntimeException("Failed to find newly created chat room.");
+            }
         }
-
     }
 
     public String addChatRoom(ChatRoomAddDTO chatRoomAddDTO) { // 채팅방 새로 만들기
@@ -62,12 +63,9 @@ public class ChatRoomService {
                 .employer(eno.get())
                 .build();
 
-        chatRoomRepository.save(chatRoomEntity);
+        // saveAndFlush 사용하여 저장 후 즉시 DB에 반영
+        chatRoomRepository.saveAndFlush(chatRoomEntity);
 
         return "success add chat room";
-
     }
-
-
-
 }

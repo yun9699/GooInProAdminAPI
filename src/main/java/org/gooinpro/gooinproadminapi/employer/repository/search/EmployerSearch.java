@@ -6,9 +6,7 @@ import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
 
 public interface EmployerSearch {
 
-    //승인 된 고용인 리스트
-    PageResponseDTO<EmployerListDTO> approvedEmployerList(PageRequestDTO pageRequestDTO);
+    //고용인 리스트
+    PageResponseDTO<EmployerListDTO> employerList(PageRequestDTO pageRequestDTO);
 
-    //승인 되지 않은 고용인 리스트
-    PageResponseDTO<EmployerListDTO> notApprovedEmployerList(PageRequestDTO pageRequestDTO);
 }
