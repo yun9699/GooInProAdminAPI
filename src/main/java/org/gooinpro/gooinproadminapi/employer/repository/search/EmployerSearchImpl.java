@@ -1,4 +1,4 @@
-package org.gooinpro.gooinproadminapi.employer.resptiroty.search;
+package org.gooinpro.gooinproadminapi.employer.repository.search;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
