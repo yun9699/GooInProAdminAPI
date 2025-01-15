@@ -7,9 +7,7 @@ import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
 import org.gooinpro.gooinproadminapi.employer.service.Employerservice;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/api/v1/employer")
@@ -24,6 +22,16 @@ public class EmployerController {
     public ResponseEntity<PageResponseDTO<EmployerListDTO>> listController(
             PageRequestDTO pageRequestDTO) {
 
+        log.info("EmployerController: getList");
         return ResponseEntity.ok(employerservice.employerListService(pageRequestDTO));
     }
+
+    //고용인 강제 삭제
+    @PutMapping("delete/{eno}")
+    public ResponseEntity<String> deleteController(@PathVariable Long eno) {
+
+        log.info("EmployerController: delete");
+        return ResponseEntity.ok(employerservice.deleteEmployerService(eno));
+    }
+
 }
