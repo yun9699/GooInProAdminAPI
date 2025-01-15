@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
-import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
-import org.gooinpro.gooinproadminapi.employer.resptiroty.EmployerRepository;
 import org.gooinpro.gooinproadminapi.jobPostings.domain.JobPostingsEntity;
 import org.gooinpro.gooinproadminapi.jobPostings.dto.JobPostingsListDTO;
 import org.gooinpro.gooinproadminapi.jobPostings.dto.JobPostingsReadDTO;
