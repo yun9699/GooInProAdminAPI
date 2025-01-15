@@ -28,6 +28,21 @@ public class JobPostingsService {
         return jobPostingsRepository.jobPostingsList(pageRequestDTO);
     }
 
+    //구인 공고 삭제
+    public String deleteJobPosting(Long jpno) {
+
+        JobPostingsEntity jobPosting = jobPostingsRepository.findById(jpno).orElseThrow(
+                () -> new RuntimeException("Can't fond JobPostings with jpno" + jpno)
+        );
+
+        jobPosting.setJpdelete(true);
+
+        jobPostingsRepository.save(jobPosting);
+
+        log.info("JobPostingsService: delete");
+        return "Successfully_deleted_JobPosting " + jpno;
+    }
+
     //구인 공고 상세 보기
     public JobPostingsReadDTO jobPostingsReadService(Long jpno) {
 

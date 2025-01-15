@@ -8,10 +8,7 @@ import org.gooinpro.gooinproadminapi.jobPostings.dto.JobPostingsListDTO;
 import org.gooinpro.gooinproadminapi.jobPostings.dto.JobPostingsReadDTO;
 import org.gooinpro.gooinproadminapi.jobPostings.service.JobPostingsService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/api/v1/jobPostings")
@@ -27,6 +24,14 @@ public class JobPostingsController {
 
         log.info("JobPostingsController: allList");
         return ResponseEntity.ok(jobPostingsService.jobPostingsAllListService(pageRequestDTO));
+    }
+
+    //구인 공고 삭제
+    @PutMapping("delete/{jpno}")
+    public ResponseEntity<String> deleteController(@PathVariable Long jpno) {
+
+        log.info("JobPostingsController: delete");
+        return ResponseEntity.ok(jobPostingsService.deleteJobPosting(jpno));
     }
 
     //구인 공고 상세 보기
