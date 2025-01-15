@@ -19,20 +19,11 @@ public class EmployerController {
 
     private final Employerservice employerservice;
 
-    //승인 된 고용인 리스트 get
-    @GetMapping("approvedList")
-    public ResponseEntity<PageResponseDTO<EmployerListDTO>> approvedListController(
+    //고용인 리스트 get
+    @GetMapping("list")
+    public ResponseEntity<PageResponseDTO<EmployerListDTO>> listController(
             PageRequestDTO pageRequestDTO) {
 
-        return ResponseEntity.ok(employerservice.approvedEmployerListService(pageRequestDTO));
-    }
-
-    //승인되지 않은 고용인 리스트 get
-    @GetMapping("notApprovedList")
-    public ResponseEntity<PageResponseDTO<EmployerListDTO>> notApprovedListController(
-            PageRequestDTO pageRequestDTO
-    ) {
-
-        return ResponseEntity.ok(employerservice.notApprovedEmployerListService(pageRequestDTO));
+        return ResponseEntity.ok(employerservice.employerListService(pageRequestDTO));
     }
 }
