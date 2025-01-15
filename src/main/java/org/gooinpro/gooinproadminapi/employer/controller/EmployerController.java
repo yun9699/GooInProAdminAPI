@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class EmployerController {
 
-    private final Employerservice employerservice;
+    private final Employerservice employerService;
 
     //고용인 리스트 get
     @GetMapping("list")
@@ -24,7 +24,7 @@ public class EmployerController {
             PageRequestDTO pageRequestDTO) {
 
         log.info("EmployerController: getList");
-        return ResponseEntity.ok(employerservice.employerListService(pageRequestDTO));
+        return ResponseEntity.ok(employerService.employerListService(pageRequestDTO));
     }
 
     //고용인 강제 삭제
@@ -32,7 +32,7 @@ public class EmployerController {
     public ResponseEntity<String> deleteController(@PathVariable Long eno) {
 
         log.info("EmployerController: delete");
-        return ResponseEntity.ok(employerservice.deleteEmployerService(eno));
+        return ResponseEntity.ok(employerService.deleteEmployerService(eno));
     }
 
     //고용인 상세 보기
@@ -40,7 +40,14 @@ public class EmployerController {
     public ResponseEntity<EmployerReadDTO> readController(@PathVariable Long eno) {
 
         log.info("EmployerController: read");
-        return ResponseEntity.ok(employerservice.employerReadService(eno));
+        return ResponseEntity.ok(employerService.employerReadService(eno));
     }
 
+    //고용인 수 확인
+    @GetMapping("count")
+    public ResponseEntity<Integer> countController() {
+
+        log.info("EmployerController: count");
+        return ResponseEntity.ok(employerService.employerCountService());
+    }
 }

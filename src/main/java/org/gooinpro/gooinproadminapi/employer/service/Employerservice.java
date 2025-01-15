@@ -61,4 +61,10 @@ public class Employerservice {
         log.info("EmployerService: read");
         return employerReadDTO;
     }
+
+    //고용인 수 확인
+    public int employerCountService() {
+
+        return employerRepository.countByEdelete(false);
+    }
 }
