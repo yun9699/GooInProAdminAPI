@@ -27,7 +27,6 @@ public class PartTimerSearchImpl extends QuerydslRepositorySupport implements Pa
 
     @Override
     public PageResponseDTO<PartTimerListDTO> getPartTimerList(PageRequestDTO pageRequestDTO) {
-
         Pageable pageable =
                 PageRequest.of(pageRequestDTO.getPage() - 1,
                         pageRequestDTO.getSize(),
@@ -40,6 +39,19 @@ public class PartTimerSearchImpl extends QuerydslRepositorySupport implements Pa
         query.where(partTimer.pno.gt(0));
         query.where(partTimer.pdelete.isFalse());
 
+        //이름 검색
+        if (pageRequestDTO.getSearchQuery() != null && !pageRequestDTO.getSearchQuery().isEmpty()) {
+            query.where(partTimer.pname.containsIgnoreCase(pageRequestDTO.getSearchQuery())
+                    .or(partTimer.proadAddress.containsIgnoreCase(pageRequestDTO.getSearchQuery())));
+        }
+
+        // 주소 검색
+        if (pageRequestDTO.getAddressQuery() != null && !pageRequestDTO.getAddressQuery().isEmpty()) {
+            query.where(partTimer.proadAddress.containsIgnoreCase(pageRequestDTO.getAddressQuery()));
+        }
+
+
+        // 페이지네이션 적용
         this.getQuerydsl().applyPagination(pageable, query);
 
         JPQLQuery<PartTimerListDTO> dtojpqlQuery = query.select(
@@ -55,7 +67,7 @@ public class PartTimerSearchImpl extends QuerydslRepositorySupport implements Pa
 
         List<PartTimerListDTO> dtoList = dtojpqlQuery.fetch();
 
-        long total = query.fetchCount();
+        long total = query.fetchCount(); // 필터링된 전체 데이터 개수
 
         return PageResponseDTO.<PartTimerListDTO>withAll()
                 .dtoList(dtoList)
@@ -63,6 +75,8 @@ public class PartTimerSearchImpl extends QuerydslRepositorySupport implements Pa
                 .pageRequestDTO(pageRequestDTO)
                 .build();
     }
+
+
 
     @Override
     public PartTimerDetailDTO partTimerDetail(Long pno) {
