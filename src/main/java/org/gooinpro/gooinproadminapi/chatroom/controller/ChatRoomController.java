@@ -17,7 +17,7 @@ public class ChatRoomController {
 
     private final ChatRoomService chatRoomService;
 
-    @GetMapping("/get/emp/{eno}")
+    @GetMapping("/get/emp/{eno}") // 고용인 채팅 하기
     public ResponseEntity<ChatRoomGetDTO> getChatRoom(@PathVariable Long eno) {
         log.info("Getting chat room with eno");
 
@@ -25,21 +25,21 @@ public class ChatRoomController {
     }
 
 
-    @PutMapping("/add/emp")
+    @PutMapping("/add/emp") // 고용인 채팅방 만들기 <채팅방 없을때 채팅하기 하면 자동으로 생성됨>
     public ResponseEntity<String> addChatRoom(@RequestBody ChatRoomAddDTO chatRoomDTO) {
         log.info("chat room add");
 
         return ResponseEntity.ok().body(chatRoomService.addChatRoom(chatRoomDTO));
     }
 
-    @GetMapping("/get/part/{pno}")
+    @GetMapping("/get/part/{pno}")  // 파트타이머 채팅 하기
     public ResponseEntity<ChatRoomGetDTO> getChatPartRoom(@PathVariable Long pno) {
         log.info("Getting chat part room with no pno");
 
         return ResponseEntity.ok(chatRoomService.findChatPartRoom(pno));
     }
 
-    @PutMapping("/add/part")
+    @PutMapping("/add/part") // 파트타이머 채팅방 만들기 <채팅방 없을때 채팅하기 하면 자동으로 생성됨>
     public ResponseEntity<String> addChatPartRoom(@RequestBody ChatRoomAddPartDTO chatRoomAddPartDTO) {
         log.info("chat Part room add");
 
@@ -47,14 +47,14 @@ public class ChatRoomController {
 
     }
 
-    @DeleteMapping("/delete/{eno}")
+    @DeleteMapping("/delete/{eno}") // 고용인 채팅방 삭제
     public ResponseEntity<String> deleteChatRoom(@PathVariable Long eno) {
         log.info("Deleting chat room with eno");
 
         return ResponseEntity.ok().body(chatRoomService.deleteChatRoom(eno));
     }
 
-    @DeleteMapping("/delete/part/{pno}")
+    @DeleteMapping("/delete/part/{pno}") // 파트타이머 채팅방 삭제
     public ResponseEntity<String> deleteChatPartRoom(@PathVariable Long pno) {
         log.info("Deleting chat room with pno");
 
