@@ -23,7 +23,7 @@ public class JobPostingsSearchImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public PageResponseDTO<JobPostingsListDTO> jobPostingsList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<JobPostingsListDTO> jobPostingsList(Long eno, PageRequestDTO pageRequestDTO) {
 
         Pageable pageable =
                 PageRequest.of(pageRequestDTO.getPage() - 1,
@@ -35,6 +35,8 @@ public class JobPostingsSearchImpl extends QuerydslRepositorySupport implements 
 
         JPQLQuery<JobPostingsEntity> query = from(jobPostings);
         query.leftJoin(employer).on(jobPostings.employer.eq(employer));
+
+        if(eno != 0) query.where(employer.eno.eq(eno));     //eno != 0 일때만 고용인 별 리스트 출력
 
         query.where(jobPostings.jpno.gt(0));
         query.where(jobPostings.jpdelete.isFalse());
