@@ -19,11 +19,11 @@ public class JobPostingsService {
 
     private final JobPostingsRepository jobPostingsRepository;
 
-    //전체 구인 공고 리스트 get
-    public PageResponseDTO<JobPostingsListDTO> jobPostingsAllListService(PageRequestDTO pageRequestDTO) {
+    //구인 공고 리스트 get
+    public PageResponseDTO<JobPostingsListDTO> jobPostingsAllListService(Long eno, PageRequestDTO pageRequestDTO) {
 
         log.info("JobPostingsService: getAllList");
-        return jobPostingsRepository.jobPostingsList(pageRequestDTO);
+        return jobPostingsRepository.jobPostingsList(eno, pageRequestDTO);
     }
 
     //구인 공고 삭제
