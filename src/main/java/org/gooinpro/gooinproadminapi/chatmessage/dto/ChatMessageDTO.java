@@ -11,7 +11,9 @@ public class ChatMessageDTO {
 
     private String id;
 
-    private String user;
+    private String sender; // 보내는사람
+
+    private String receiver; // 받는사람
 
     private String message;
 
