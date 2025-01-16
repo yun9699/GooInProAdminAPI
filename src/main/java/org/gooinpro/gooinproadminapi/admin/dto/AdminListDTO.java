@@ -1,13 +1,14 @@
 package org.gooinpro.gooinproadminapi.admin.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+
 import java.sql.Timestamp;
 
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AdminListDTO {
 
     private Long admno;

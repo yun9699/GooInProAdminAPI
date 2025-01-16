@@ -1,16 +1,15 @@
-package org.gooinpro.gooinproadminapi.admin.dto;
+package org.gooinpro.gooinproadminapi.admin.dto.token;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminLoginDTO {
-
+public class TokenRequestDTO {
     private String admid;
     private String admpw;
 }
