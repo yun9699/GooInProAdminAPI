@@ -6,7 +6,9 @@ import lombok.extern.log4j.Log4j2;
 import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.parttimer.domain.PartTimerEntity;
+import org.gooinpro.gooinproadminapi.parttimer.domain.QPartTimerDocEntity;
 import org.gooinpro.gooinproadminapi.parttimer.domain.QPartTimerEntity;
+import org.gooinpro.gooinproadminapi.parttimer.domain.QPartTimerImageEntity;
 import org.gooinpro.gooinproadminapi.parttimer.dto.PartTimerDetailDTO;
 import org.gooinpro.gooinproadminapi.parttimer.dto.PartTimerListDTO;
 import org.springframework.data.domain.PageRequest;
@@ -66,8 +68,13 @@ public class PartTimerSearchImpl extends QuerydslRepositorySupport implements Pa
     public PartTimerDetailDTO partTimerDetail(Long pno) {
 
         QPartTimerEntity partTimer = QPartTimerEntity.partTimerEntity;
+        QPartTimerDocEntity partTimerDoc = QPartTimerDocEntity.partTimerDocEntity;
+        QPartTimerImageEntity partTimerImage = QPartTimerImageEntity.partTimerImageEntity;
 
         JPQLQuery<PartTimerEntity> query = from(partTimer);
+
+        query.leftJoin(partTimerDoc).on(partTimerDoc.pno.eq(partTimer));
+        query.leftJoin(partTimerImage).on(partTimerImage.pno.eq(partTimer));
 
         query.where(partTimer.pno.eq(pno));
         query.where(partTimer.pdelete.isFalse());
@@ -79,6 +86,8 @@ public class PartTimerSearchImpl extends QuerydslRepositorySupport implements Pa
                         partTimer.pemail,
                         partTimer.ppw,
                         partTimer.pname,
+                        partTimerImage.pifilename,
+                        partTimerDoc.pdifilename,
                         partTimer.pbirth,
                         partTimer.pgender,
                         partTimer.pdelete,

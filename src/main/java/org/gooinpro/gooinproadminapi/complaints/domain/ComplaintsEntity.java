@@ -22,11 +22,13 @@ public class ComplaintsEntity {
     private Long cno;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(100)")
-    private String cname;
+    private String ctitle;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(500)")
     private String ccontent;
 
+    @Column(columnDefinition = "VARCHAR(500)")
+    private String canswer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eno")
@@ -40,6 +42,8 @@ public class ComplaintsEntity {
     private Timestamp cregdate;
 
     private Timestamp ccheckedTime;
+
+    private boolean cstatus;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean cdelete;
