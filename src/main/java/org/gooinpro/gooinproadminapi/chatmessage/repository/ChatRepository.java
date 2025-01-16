@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ChatRepository extends MongoRepository<ChatEntity, Long> {
+public interface ChatRepository extends MongoRepository<ChatEntity, String> {
 
-    List<ChatEntity> findByUser(String user);
+    List<ChatEntity> findBySenderOrReceiver(String sender, String receiver);
 
     void deleteByRoomId(String roomId);
 

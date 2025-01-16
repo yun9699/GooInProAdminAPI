@@ -19,28 +19,25 @@ public class ChatService {
     @Autowired
     private ChatRepository chatRepository;
 
-    public ChatEntity saveMessage(String user, String message, String roomId) {
-        log.info("Saving message: user={}, message={}, roomId={}", user, message, roomId);
+    public ChatEntity saveMessage(ChatMessageDTO chatMessageDTO) {
+        ChatEntity chatEntity = ChatEntity.builder()
+                .id(UUID.randomUUID().toString())
+                .sender(chatMessageDTO.getSender())
+                .receiver(chatMessageDTO.getReceiver())
+                .message(chatMessageDTO.getMessage())
+                .roomId(chatMessageDTO.getRoomId())
+                .timestamp(new Date())
+                .build();
 
-        // id를 UUID로 생성하여 고유하게 설정
-        String newId = UUID.randomUUID().toString();
-
-        ChatEntity chatEntity = new ChatEntity();
-        chatEntity.setId(newId);  // UUID로 새로운 ID 설정
-        chatEntity.setUser(user);
-        chatEntity.setMessage(message);
-        chatEntity.setRoomId(roomId);
-        chatEntity.setTimestamp(new Date());
-
-        // DB에 메시지 저장
         ChatEntity savedMessage = chatRepository.save(chatEntity);
+        log.info("----------------------save");
         log.info("Saved message: {}", savedMessage);
         return savedMessage;
     }
 
-    public List<ChatEntity> getMessage(String user) {
+    public List<ChatEntity> getMessage(String sender, String recevier) {
 
-        return chatRepository.findByUser(user);
+        return chatRepository.findBySenderOrReceiver(sender, recevier);
     }
 
     public void deleteMessage(String roomId) {

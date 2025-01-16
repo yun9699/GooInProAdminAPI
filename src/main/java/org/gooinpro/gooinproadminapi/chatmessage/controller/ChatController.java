@@ -24,16 +24,11 @@ public class ChatController {
     private final ChatService chatService;
 
     // 채팅 리스트 반환
-    @GetMapping("/chat/{user}")
-    public ResponseEntity<List<ChatEntity>> getChatMessages(@PathVariable String user){
-        //임시로 리스트 형식으로 구현, 실제론 DB 접근 필요
-
-        log.info("getChatMessages called");
-
-        List<ChatEntity> chatEntities = chatService.getMessage(user);
-
+    @GetMapping("/chat")
+    public ResponseEntity<List<ChatEntity>> getChatMessages(@RequestParam String sender, @RequestParam String receiver) {
+        log.info("getChatMessages called for sender: {} and receiver: {}", sender, receiver);
+        List<ChatEntity> chatEntities = chatService.getMessage(sender, receiver);
         return ResponseEntity.ok().body(chatEntities);
-
     }
 
     //메시지 송신 및 수신, /pub가 생략된 모습. 클라이언트 단에선 /pub/message로 요청
@@ -52,8 +47,7 @@ public class ChatController {
         log.info("sendMessage called");
         log.info("----------------------------------------");
         // 메시지를 서비스로 전달하여 저장
-        ChatEntity savedMessage = chatService.saveMessage(chatMessageDTO.getUser(), chatMessageDTO.getMessage(), chatMessageDTO.getRoomId());
-        // 저장된 메시지 응답
+        ChatEntity savedMessage = chatService.saveMessage(chatMessageDTO);
         return ResponseEntity.ok(savedMessage);
     }
 }

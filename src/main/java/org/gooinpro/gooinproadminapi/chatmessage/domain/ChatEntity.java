@@ -13,13 +13,15 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "messages")
+@Document(collection = "messagesChat")
 public class ChatEntity {
 
     @Id
     private String id;
 
-    private String user;
+    private String sender; // 보내는사람
+
+    private String receiver; // 받는사람
 
     private String message;
 
@@ -27,9 +29,5 @@ public class ChatEntity {
 
     private String roomId;
 
-    @Override
-    public String toString() { // test확인용
-        return "ChatEntity{id='" + id + "', user='" + user + "', message='" + message + "', timestamp=" + timestamp + "}";
-    }
 
 }
