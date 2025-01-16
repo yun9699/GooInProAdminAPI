@@ -31,3 +31,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+org:
+  gooinpro:
+    accessTime: 30
+    refreshTime: 10000
+    alwaysNew: true
