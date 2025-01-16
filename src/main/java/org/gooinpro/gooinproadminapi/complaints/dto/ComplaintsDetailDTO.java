@@ -1,20 +1,19 @@
 package org.gooinpro.gooinproadminapi.complaints.dto;
 
-
 import lombok.Data;
-import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
-import org.gooinpro.gooinproadminapi.parttimer.domain.PartTimerEntity;
 
 import java.sql.Timestamp;
 
 @Data
-public class ComplaintsDTO {
+public class ComplaintsDetailDTO {
 
     private Long cno; // pk
 
     private String ctitle; // 신고 제목
 
     private String ccontent; // 신고 내용
+
+    private String cifilename; // 이미지
 
     private String canswer; // 답변
 
