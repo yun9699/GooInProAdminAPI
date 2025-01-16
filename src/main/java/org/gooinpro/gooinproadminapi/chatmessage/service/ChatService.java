@@ -42,4 +42,11 @@ public class ChatService {
 
         return chatRepository.findByUser(user);
     }
+
+    public void deleteMessage(String roomId) {
+        log.info("Deleting message: {}", roomId);
+        chatRepository.deleteByRoomId(roomId);
+    }
+
+
 }

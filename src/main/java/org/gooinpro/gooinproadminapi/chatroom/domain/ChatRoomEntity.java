@@ -3,6 +3,7 @@ package org.gooinpro.gooinproadminapi.chatroom.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
+import org.gooinpro.gooinproadminapi.parttimer.domain.PartTimerEntity;
 
 @Entity
 @Getter
@@ -22,5 +23,8 @@ public class ChatRoomEntity {
     @JoinColumn(name = "eno")
     private EmployerEntity employer;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pno")
+    private PartTimerEntity partTimer;
 
 }
