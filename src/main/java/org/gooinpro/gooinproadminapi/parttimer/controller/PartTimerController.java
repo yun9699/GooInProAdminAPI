@@ -9,10 +9,7 @@ import org.gooinpro.gooinproadminapi.parttimer.dto.PartTimerDetailDTO;
 import org.gooinpro.gooinproadminapi.parttimer.dto.PartTimerListDTO;
 import org.gooinpro.gooinproadminapi.parttimer.service.PartTimerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/api/v1/partTimer")
@@ -30,6 +27,11 @@ public class PartTimerController{
     @GetMapping("detail/{pno}")
     public ResponseEntity<PartTimerDetailDTO> partTimerDetail(@PathVariable Long pno){
         return ResponseEntity.ok(partTimerService.partTimerDetail(pno));
+    }
+
+    @PutMapping("delete/{pno}")
+    public ResponseEntity<String> partTimerDelete(@PathVariable Long pno){
+        return ResponseEntity.ok(partTimerService.deletePartTimer(pno));
     }
 
 }
