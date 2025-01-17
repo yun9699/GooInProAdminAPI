@@ -23,6 +23,7 @@ public class JobPostingsController {
     public ResponseEntity<PageResponseDTO<JobPostingsListDTO>> allListController(
             @PathVariable Long eno, @RequestParam(required = false) String jpname, PageRequestDTO pageRequestDTO) {
 
+        log.info(eno + "----" + jpname);
         log.info("JobPostingsController: allList");
         return ResponseEntity.ok(
                 jobPostingsService.jobPostingsAllListService(eno, jpname, pageRequestDTO));

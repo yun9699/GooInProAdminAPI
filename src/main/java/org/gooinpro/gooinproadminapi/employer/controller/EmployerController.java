@@ -23,6 +23,7 @@ public class EmployerController {
     public ResponseEntity<PageResponseDTO<EmployerListDTO>> listController(
             @RequestParam(required = false) String ename, PageRequestDTO pageRequestDTO) {
 
+        log.info(ename);
         log.info("EmployerController: getList");
         return ResponseEntity.ok(employerService.employerListService(ename, pageRequestDTO));
     }
