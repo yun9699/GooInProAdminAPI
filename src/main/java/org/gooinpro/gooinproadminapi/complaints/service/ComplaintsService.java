@@ -11,6 +11,9 @@ import org.gooinpro.gooinproadminapi.complaints.repository.ComplaintsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 @Log4j2
@@ -43,6 +46,7 @@ public class ComplaintsService {
 
         complaints.setCanswer(canswer);
         complaints.setCstatus(true);
+        complaints.setCcheckedTime(Timestamp.valueOf(LocalDateTime.now()));
         complaintsRepository.save(complaints);
     }
 

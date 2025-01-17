@@ -29,10 +29,14 @@ public class QNAController {
         return ResponseEntity.ok(qnaService.getQnaDetail(qno));
     }
 
-    @PutMapping("answer/{admno}")
-    public ResponseEntity<String> answerQNA(@PathVariable("admno") Long admno, @RequestBody QNAAnswerDTO qnaAnswerDTO) {
-        return ResponseEntity.ok(qnaService.qnaAnswer(admno, qnaAnswerDTO));
+    @PutMapping("answer/{qno}")
+    public ResponseEntity<String> answerQNA(@PathVariable("qno") Long qno, @RequestBody QNAAnswerDTO qnaAnswerDTO) {
+        if (qno == null || qnaAnswerDTO == null || qnaAnswerDTO.getAdmno() == null) {
+            throw new IllegalArgumentException("qno and admno must not be null");
+        }
+        return ResponseEntity.ok(qnaService.qnaAnswer(qno, qnaAnswerDTO));
     }
+
 
     @PutMapping("delete/{qno}")
     public ResponseEntity<String> deleteQNA(@PathVariable("qno") Long qno) {
