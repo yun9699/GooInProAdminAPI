@@ -19,7 +19,7 @@ public class JobPostingsController {
     private final JobPostingsService jobPostingsService;
 
     //구인 공고 리스트 get(eno = 0 이면 전체 구인 공고 리스트)
-    @GetMapping("allList/{eno}")
+    @GetMapping("list/{eno}")
     public ResponseEntity<PageResponseDTO<JobPostingsListDTO>> allListController(
             @PathVariable Long eno, PageRequestDTO pageRequestDTO) {
 
