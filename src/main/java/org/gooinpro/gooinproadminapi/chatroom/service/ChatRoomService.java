@@ -44,28 +44,19 @@ public class ChatRoomService {
             ChatRoomAddDTO chatRoomAddDTO = new ChatRoomAddDTO();
             chatRoomAddDTO.setEno(eno);
 
-            addChatRoom(chatRoomAddDTO); // 채팅방 생성
-            log.info("222222222222222222");
-            // DB에 반영 후 바로 조회하기 위해 saveAndFlush 사용
-            Optional<ChatRoomEntity> newChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
+            ChatRoomGetDTO dto = new ChatRoomGetDTO();
+            dto.setRno(addChatRoom(chatRoomAddDTO)); // 채팅방 생성
 
-            if (newChatRoom.isPresent()) {
-                Long newEno = newChatRoom.get().getRno();
-                log.info("33333333333333333");
-                log.info(newEno);
-                return chatRoomRepository.GetRoomNumber(newEno);
-            } else {
-                throw new RuntimeException("Failed to find newly created chat room.");
-            }
+            return dto;
         }
     }
 
-    public String addChatRoom(ChatRoomAddDTO chatRoomAddDTO) { // 고용인 채팅방 새로 만들기
+    public Long addChatRoom(ChatRoomAddDTO chatRoomAddDTO) { // 고용인 채팅방 새로 만들기
 
         Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByEmployer_Eno(chatRoomAddDTO.getEno());
 
         if (existingChatRoom.isPresent()) {
-            return "Already existing chat room";
+            return existingChatRoom.get().getRno();
         }
         log.info("44444444444444444");
         Optional<EmployerEntity> eno = employerRepository.findByEno(chatRoomAddDTO.getEno());
@@ -76,9 +67,7 @@ public class ChatRoomService {
 
         log.info("555555555555555");
         // saveAndFlush 사용하여 저장 후 즉시 DB에 반영
-        chatRoomRepository.save(chatRoomEntity);
-
-        return "success add chat room";
+        return chatRoomRepository.save(chatRoomEntity).getRno();
     }
 
     public ChatRoomGetDTO findChatPartRoom(Long pno) { // 파트타이머 채팅방 찾기
@@ -94,27 +83,20 @@ public class ChatRoomService {
             ChatRoomAddPartDTO chatRoomAddPartDTO = new ChatRoomAddPartDTO();
             chatRoomAddPartDTO.setPno(pno);
 
-            addChatPartRoom(chatRoomAddPartDTO); // 채팅방 생성
+            ChatRoomGetDTO dto = new ChatRoomGetDTO();
+            dto.setRno(addChatPartRoom(chatRoomAddPartDTO)); // 채팅방 생성
 
-            // DB에 반영 후 바로 조회하기 위해 saveAndFlush 사용
-            Optional<ChatRoomEntity> newChatRoom = chatRoomRepository.findByPartTimer_Pno(pno);
-
-            if (newChatRoom.isPresent()) {
-                Long newPno = newChatRoom.get().getRno();
-                return chatRoomRepository.GetRoomPartNumber(newPno);
-            } else {
-                throw new RuntimeException("Failed to find newly created chat room.");
-            }
+            return dto;
         }
     }
 
 
-    public String addChatPartRoom(ChatRoomAddPartDTO chatRoomAddPartDTO ) { // 파트타이머 채팅방 새로 만들기
+    public Long addChatPartRoom(ChatRoomAddPartDTO chatRoomAddPartDTO ) { // 파트타이머 채팅방 새로 만들기
 
         Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByPartTimer_Pno(chatRoomAddPartDTO.getPno());
 
         if (existingChatRoom.isPresent()) {
-            return "Already existing chat room";
+            return existingChatRoom.get().getRno();
         }
 
         Optional<PartTimerEntity> pno = partTimerRepository.findByPno(chatRoomAddPartDTO.getPno());
@@ -123,40 +105,46 @@ public class ChatRoomService {
                 .partTimer(pno.get())
                 .build();
 
-        // saveAndFlush 사용하여 저장 후 즉시 DB에 반영
-        chatRoomRepository.saveAndFlush(chatRoomEntity);
-
-        return "success add chat room";
+        return chatRoomRepository.save(chatRoomEntity).getRno();
     }
 
-    public String deleteChatRoom(Long eno) { // 고용인의 채팅방 삭제
+//    public String deleteChatRoom(Long eno) { // 고용인의 채팅방 삭제
+//
+//        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
+//
+//        if(existingChatRoom.isPresent()) {
+//            ChatRoomEntity chatRoomEntity = existingChatRoom.get();
+//            Long roomId = chatRoomEntity.getRno();
+//
+//            chatRoomRepository.delete(existingChatRoom.get()); // 채팅방 삭제
+//            chatService.deleteMessage(roomId.toString()); // mongodb의 채팅내역 삭제
+//        }
+//
+//        return "success delete chat room";
+//
+//    }
+//
+//    public String deleteChatPartRoom(Long pno) { // 파트타이머의 채팅방 삭제
+//
+//        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByPartTimer_Pno(pno);
+//
+//        if(existingChatRoom.isPresent()) {
+//            ChatRoomEntity chatRoomEntity = existingChatRoom.get();
+//            Long roomId = chatRoomEntity.getRno();
+//
+//            chatRoomRepository.delete(existingChatRoom.get()); // 채팅방 삭제
+//            chatService.deleteMessage(roomId.toString()); // mongodb의 채팅내역 삭제
+//
+//        }
+//
+//        return "success delete chat room";
+//
+//    }
 
-        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByEmployer_Eno(eno);
+    public String deleteChat(Long rno) {
 
-        if(existingChatRoom.isPresent()) {
-            ChatRoomEntity chatRoomEntity = existingChatRoom.get();
-            Long roomId = chatRoomEntity.getRno();
-
-            chatRoomRepository.delete(existingChatRoom.get()); // 채팅방 삭제
-            chatService.deleteMessage(roomId.toString()); // mongodb의 채팅내역 삭제
-        }
-
-        return "success delete chat room";
-
-    }
-
-    public String deleteChatPartRoom(Long pno) { // 파트타이머의 채팅방 삭제
-
-        Optional<ChatRoomEntity> existingChatRoom = chatRoomRepository.findByPartTimer_Pno(pno);
-
-        if(existingChatRoom.isPresent()) {
-            ChatRoomEntity chatRoomEntity = existingChatRoom.get();
-            Long roomId = chatRoomEntity.getRno();
-
-            chatRoomRepository.delete(existingChatRoom.get()); // 채팅방 삭제
-            chatService.deleteMessage(roomId.toString()); // mongodb의 채팅내역 삭제
-
-        }
+        chatRoomRepository.deleteById(rno);
+        chatService.deleteMessage(rno.toString());
 
         return "success delete chat room";
 
