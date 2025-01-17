@@ -22,23 +22,8 @@ public class EmployerSearchImpl extends QuerydslRepositorySupport implements Emp
         super(EmployerEntity.class);
     }
 
-    @Override
-    public PageResponseDTO<EmployerListDTO> employerList(PageRequestDTO pageRequestDTO) {
-
-        Pageable pageable =
-                PageRequest.of(pageRequestDTO.getPage() - 1,
-                        pageRequestDTO.getSize(),
-                        Sort.by("eno").descending());
-
-        QEmployerEntity employer = QEmployerEntity.employerEntity;
-
-        JPQLQuery<EmployerEntity> query = from(employer);
-
-        query.where(employer.eno.gt(0));
-        query.where(employer.edelete.isFalse());
-        query.orderBy(employer.eno.desc());
-
-        this.getQuerydsl().applyPagination(pageable, query);
+    private PageResponseDTO<EmployerListDTO> returnListDTO(
+            JPQLQuery<EmployerEntity> query, QEmployerEntity employer, PageRequestDTO pageRequestDTO) {
 
         JPQLQuery<EmployerListDTO> tupleQuery = query.select(
                 Projections.bean(EmployerListDTO.class,
@@ -56,5 +41,29 @@ public class EmployerSearchImpl extends QuerydslRepositorySupport implements Emp
                 .totalCount(total)
                 .pageRequestDTO(pageRequestDTO)
                 .build();
+    }
+
+    @Override
+    public PageResponseDTO<EmployerListDTO> employerList(String ename, PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable =
+                PageRequest.of(pageRequestDTO.getPage() - 1,
+                        pageRequestDTO.getSize(),
+                        Sort.by("eno").descending());
+
+        QEmployerEntity employer = QEmployerEntity.employerEntity;
+
+        JPQLQuery<EmployerEntity> query = from(employer);
+
+        //ename == null 이면 검색 안함
+        if(ename != null) query.where(employer.ename.containsIgnoreCase(ename));
+
+        query.where(employer.eno.gt(0));
+        query.where(employer.edelete.isFalse());
+        query.orderBy(employer.eno.desc());
+
+        this.getQuerydsl().applyPagination(pageable, query);
+
+        return returnListDTO(query, employer, pageRequestDTO);
     }
 }
