@@ -21,10 +21,10 @@ public class EmployerController {
     //고용인 리스트 get
     @GetMapping("list")
     public ResponseEntity<PageResponseDTO<EmployerListDTO>> listController(
-            PageRequestDTO pageRequestDTO) {
+            @RequestParam(required = false) String ename, PageRequestDTO pageRequestDTO) {
 
         log.info("EmployerController: getList");
-        return ResponseEntity.ok(employerService.employerListService(pageRequestDTO));
+        return ResponseEntity.ok(employerService.employerListService(ename, pageRequestDTO));
     }
 
     //고용인 강제 삭제

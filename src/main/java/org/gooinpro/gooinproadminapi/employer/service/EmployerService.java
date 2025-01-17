@@ -21,10 +21,11 @@ public class EmployerService {
     private final EmployerRepository employerRepository;
 
     //고용인 리스트 get
-    public PageResponseDTO<EmployerListDTO> employerListService(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<EmployerListDTO> employerListService(
+            String ename, PageRequestDTO pageRequestDTO) {
 
         log.info("EmployerService: getList");
-        return employerRepository.employerList(pageRequestDTO);
+        return employerRepository.employerList(ename, pageRequestDTO);
     }
 
     //고용인 강제 삭제
