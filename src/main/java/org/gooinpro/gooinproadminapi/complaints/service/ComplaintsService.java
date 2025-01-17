@@ -54,5 +54,13 @@ public class ComplaintsService {
         complaintsRepository.save(complaints);
     }
 
+    public Long ComplaintsFCount() {
+        return complaintsRepository.countByFStatus();
+    }
+
+    public Long ComplaintsTCount() {
+        return complaintsRepository.countByTStatus();
+    }
+
 
 }
