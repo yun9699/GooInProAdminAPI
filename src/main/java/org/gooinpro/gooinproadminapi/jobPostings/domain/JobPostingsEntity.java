@@ -49,7 +49,8 @@ public class JobPostingsEntity {
     @Column(nullable = false)
     private int jpminDuration;  //최소 근무 기간
 
-    private int jpmaxDuration;  //최대 근무 기간(null 이면 제한 없음)
+    @Column(columnDefinition = "int default 0", nullable = false)
+    private int jpmaxDuration = 0;  //최대 근무 기간(0 이면 제한 없음)
 
     private Time jpworkStartTime;   //근무 시작 시간
 

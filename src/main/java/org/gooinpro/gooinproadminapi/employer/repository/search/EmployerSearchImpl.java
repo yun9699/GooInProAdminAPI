@@ -8,7 +8,6 @@ import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.employer.domain.EmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.domain.QEmployerEntity;
 import org.gooinpro.gooinproadminapi.employer.dto.EmployerListDTO;
-import org.gooinpro.gooinproadminapi.employer.dto.EmployerReadDTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
