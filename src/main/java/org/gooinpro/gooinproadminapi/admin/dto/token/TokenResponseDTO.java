@@ -13,4 +13,7 @@ public class TokenResponseDTO {
     private String accessToken;
     private String refreshToken;
     private Long admno;
+    private String admid;
+    private String admname;
+    private String admrole;
 }
