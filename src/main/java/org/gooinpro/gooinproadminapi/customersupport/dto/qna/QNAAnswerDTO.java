@@ -9,4 +9,7 @@ public class QNAAnswerDTO {
 
     private String qanswer;
 
+    private Long admno;
+
+
 }
