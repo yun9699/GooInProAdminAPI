@@ -6,6 +6,7 @@ import org.gooinpro.gooinproadminapi.jobPostings.dto.JobPostingsListDTO;
 
 public interface JobPostingsSearch {
 
-    //구인 공고 리스트 get(eno = 0 일때는 전체 구인 공고 리스트)
-    PageResponseDTO<JobPostingsListDTO> jobPostingsList(Long eno, PageRequestDTO pageRequestDTO);
+    //구인 공고 리스트 get(eno = 0 일때는 전체 구인 공고 리스트, jpname 검색기능)
+    PageResponseDTO<JobPostingsListDTO> jobPostingsList(
+            Long eno, String jpname, PageRequestDTO pageRequestDTO);
 }

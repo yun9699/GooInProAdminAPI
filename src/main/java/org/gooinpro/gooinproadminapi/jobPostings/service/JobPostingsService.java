@@ -20,10 +20,11 @@ public class JobPostingsService {
     private final JobPostingsRepository jobPostingsRepository;
 
     //구인 공고 리스트 get
-    public PageResponseDTO<JobPostingsListDTO> jobPostingsAllListService(Long eno, PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<JobPostingsListDTO> jobPostingsAllListService(
+            Long eno, String jpname, PageRequestDTO pageRequestDTO) {
 
         log.info("JobPostingsService: getAllList");
-        return jobPostingsRepository.jobPostingsList(eno, pageRequestDTO);
+        return jobPostingsRepository.jobPostingsList(eno, jpname, pageRequestDTO);
     }
 
     //구인 공고 삭제

@@ -18,13 +18,14 @@ public class JobPostingsController {
 
     private final JobPostingsService jobPostingsService;
 
-    //구인 공고 리스트 get(eno = 0 이면 전체 구인 공고 리스트)
+    //구인 공고 리스트 get(eno = 0 이면 전체 구인 공고 리스트, jpname != null 이면 공고 이름으로 검색 결과 리스트)
     @GetMapping("list/{eno}")
     public ResponseEntity<PageResponseDTO<JobPostingsListDTO>> allListController(
-            @PathVariable Long eno, PageRequestDTO pageRequestDTO) {
+            @PathVariable Long eno, @RequestParam(required = false) String jpname, PageRequestDTO pageRequestDTO) {
 
         log.info("JobPostingsController: allList");
-        return ResponseEntity.ok(jobPostingsService.jobPostingsAllListService(eno, pageRequestDTO));
+        return ResponseEntity.ok(
+                jobPostingsService.jobPostingsAllListService(eno, jpname, pageRequestDTO));
     }
 
     //구인 공고 삭제
