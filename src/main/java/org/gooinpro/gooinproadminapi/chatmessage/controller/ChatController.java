@@ -25,9 +25,8 @@ public class ChatController {
 
     // 채팅 리스트 반환
     @GetMapping("/chat")
-    public ResponseEntity<List<ChatEntity>> getChatMessages(@RequestParam String sender, @RequestParam String receiver) {
-        log.info("getChatMessages called for sender: {} and receiver: {}", sender, receiver);
-        List<ChatEntity> chatEntities = chatService.getMessage(sender, receiver);
+    public ResponseEntity<List<ChatEntity>> getChatMessages(@RequestParam String roomId) {
+        List<ChatEntity> chatEntities = chatService.getMessage(roomId);
         return ResponseEntity.ok().body(chatEntities);
     }
 

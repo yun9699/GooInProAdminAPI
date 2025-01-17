@@ -35,9 +35,9 @@ public class ChatService {
         return savedMessage;
     }
 
-    public List<ChatEntity> getMessage(String sender, String recevier) {
+    public List<ChatEntity> getMessage(String roomId) {
 
-        return chatRepository.findBySenderOrReceiver(sender, recevier);
+        return chatRepository.findByRoomId(roomId);
     }
 
     public void deleteMessage(String roomId) {
