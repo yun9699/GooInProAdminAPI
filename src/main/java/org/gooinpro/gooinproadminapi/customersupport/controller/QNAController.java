@@ -48,4 +48,16 @@ public class QNAController {
             @PathVariable("qstatus") boolean qstatus, PageRequestDTO pageRequestDTO) {
         return ResponseEntity.ok(qnaService.qnaStatusList(qstatus, pageRequestDTO));
     }
+
+    @GetMapping("count/f")
+    public ResponseEntity<Long> countFQNA() {
+
+        return ResponseEntity.ok(qnaService.QNAFCount());
+    }
+
+    @GetMapping("count/t")
+    public ResponseEntity<Long> countTQNA() {
+
+        return ResponseEntity.ok(qnaService.QNATCount());
+    }
 }

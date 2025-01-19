@@ -80,5 +80,14 @@ public class QNAService {
 
     }
 
+    public Long QNAFCount() {
+        return qnaRepository.countByFStatus();
+    }
+
+    public Long QNATCount() {
+        return qnaRepository.countByTStatus();
+    }
+
+
 
 }
