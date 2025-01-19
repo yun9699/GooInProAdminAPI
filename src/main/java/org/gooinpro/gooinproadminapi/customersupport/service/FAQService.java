@@ -38,15 +38,11 @@ public class FAQService {
     public String addFAQ(FAQAddDTO faqAddDTO) {
         log.info("Received admno: " + faqAddDTO.getAdmno());
 
-        Optional<AdminEntity> admno = adminRepository.findById(faqAddDTO.getAdmno());
-
-        if (!admno.isPresent()) {
-            log.error("해당 관리자 찾을 수 없음: " + faqAddDTO.getAdmno());
-            return "해당 관리자 찾을 수 없음: " + faqAddDTO.getAdmno();
-        }
+        AdminEntity admin = adminRepository.findById(faqAddDTO.getAdmno())
+                .orElseThrow(() -> new IllegalArgumentException("해당 관리자 찾을 수 없음: " + faqAddDTO.getAdmno()));
 
         FAQEntity faqEntity = FAQEntity.builder()
-                .admno(admno.get())
+                .admno(admin)
                 .ftitle(faqAddDTO.getFtitle())
                 .fcontent(faqAddDTO.getFcontent())
                 .fcategory(faqAddDTO.getFcategory())

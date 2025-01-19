@@ -8,6 +8,7 @@ import org.gooinpro.gooinproadminapi.common.dto.PageRequestDTO;
 import org.gooinpro.gooinproadminapi.common.dto.PageResponseDTO;
 import org.gooinpro.gooinproadminapi.customersupport.dto.faq.*;
 import org.gooinpro.gooinproadminapi.customersupport.service.FAQService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,18 @@ public class FAQController {
 
     @PostMapping("register")
     public ResponseEntity<String> faqAdd(@RequestBody FAQAddDTO faqAddDTO) {
-        return ResponseEntity.ok(faqService.addFAQ(faqAddDTO));
+        try {
+            String message = faqService.addFAQ(faqAddDTO);
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException e) {
+            log.error("FAQ 등록 실패: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("서버 내부 오류 발생: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("FAQ 등록 중 오류가 발생했습니다.");
+        }
     }
+
 
     @PutMapping("delete/{fno}")
     public ResponseEntity<String> faqDelete(@PathVariable Long fno) {
