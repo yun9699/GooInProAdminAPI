@@ -13,6 +13,8 @@ import org.gooinpro.gooinproadminapi.customersupport.dto.qna.QNAListDTO;
 import org.gooinpro.gooinproadminapi.customersupport.repository.qna.QNARepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.context.ApplicationEventPublisher;
+
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -26,6 +28,7 @@ public class QNAService {
 
     private final QNARepository qnaRepository;
     private final AdminRepository adminRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public PageResponseDTO<QNAListDTO> QNAList(PageRequestDTO pageRequestDTO) {
         return qnaRepository.qnaList(pageRequestDTO);
