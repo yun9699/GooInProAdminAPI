@@ -11,7 +11,11 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() {
-        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");  // MongoDB 연결 URL
-        return new MongoTemplate(mongoClient, "gooinprochatdb");  // 데이터베이스 이름 지정
+        // 인증 정보를 포함한 MongoDB 연결 URI
+        String mongoUri = "mongodb://gooinprochatdbuser:gooinprochatdbuser@localhost:27017/gooinprochatdb?authSource=gooinprochatdb";
+
+        MongoClient mongoClient = MongoClients.create(mongoUri);
+        return new MongoTemplate(mongoClient, "gooinprochatdb");
+
     }
 }

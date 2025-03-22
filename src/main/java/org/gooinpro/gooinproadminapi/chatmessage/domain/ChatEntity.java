@@ -28,6 +28,4 @@ public class ChatEntity {
     private Date timestamp;
 
     private String roomId;
-
-
 }
