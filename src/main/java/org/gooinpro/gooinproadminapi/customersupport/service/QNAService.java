@@ -31,10 +31,19 @@ public class QNAService {
         return qnaRepository.qnaList(pageRequestDTO);
     }
 
-    public String qnaAnswer(Long admno, QNAAnswerDTO qnaAnswerDTO) {
-        QNAEntity qna = qnaRepository.findById(qnaAnswerDTO.getQno()).orElseThrow();
+    public String qnaAnswer(Long qno, QNAAnswerDTO qnaAnswerDTO) {
+        if (qno == null) {
+            throw new IllegalArgumentException("Qno must not be null");
+        }
+        if (qnaAnswerDTO == null || qnaAnswerDTO.getAdmno() == null) {
+            throw new IllegalArgumentException("Admno must not be null");
+        }
 
-        AdminEntity admin = adminRepository.findById(admno).orElseThrow();
+        QNAEntity qna = qnaRepository.findById(qno)
+                .orElseThrow(() -> new IllegalArgumentException("QNA not found with id: " + qno));
+
+        AdminEntity admin = adminRepository.findById(qnaAnswerDTO.getAdmno())
+                .orElseThrow(() -> new IllegalArgumentException("Admin not found with id: " + qnaAnswerDTO.getAdmno()));
 
         qna.setAdmno(admin);
         qna.setQanswer(qnaAnswerDTO.getQanswer());
@@ -43,8 +52,9 @@ public class QNAService {
 
         qnaRepository.save(qna);
 
-        return "qna 답변 완료";
+        return "QNA 답변 완료";
     }
+
 
     public QNADetailDTO getQnaDetail(Long qno) {
         return qnaRepository.qnaDetail(qno);
@@ -69,6 +79,15 @@ public class QNAService {
         return qnaRepository.qnaStatusList(status, pageRequestDTO);
 
     }
+
+    public Long QNAFCount() {
+        return qnaRepository.countByFStatus();
+    }
+
+    public Long QNATCount() {
+        return qnaRepository.countByTStatus();
+    }
+
 
 
 }

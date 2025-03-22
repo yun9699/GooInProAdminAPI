@@ -51,4 +51,16 @@ public class ComplaintsController {
         return ResponseEntity.ok("삭제 완료");
     }
 
+    @GetMapping("count/f")
+    public ResponseEntity<Long> countFComplaints() {
+
+        return ResponseEntity.ok(complaintsService.ComplaintsFCount());
+    }
+
+    @GetMapping("count/t")
+    public ResponseEntity<Long> countTComplaints() {
+
+        return ResponseEntity.ok(complaintsService.ComplaintsTCount());
+    }
+
 }

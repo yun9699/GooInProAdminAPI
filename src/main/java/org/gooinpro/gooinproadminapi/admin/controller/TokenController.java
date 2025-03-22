@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 @RestController
@@ -64,6 +63,9 @@ public class TokenController {
         tokenResponseDTO.setAccessToken(accessToken);
         tokenResponseDTO.setRefreshToken(refreshToken);
         tokenResponseDTO.setAdmno(admin.getAdmno());
+        tokenResponseDTO.setAdmid(admin.getAdmid());
+        tokenResponseDTO.setAdmname(admin.getAdmname());
+        tokenResponseDTO.setAdmrole(admin.getAdmrole());
 
         return ResponseEntity.ok(tokenResponseDTO);
     }
@@ -95,6 +97,12 @@ public class TokenController {
             tokenResponseDTO.setAdmno(admno);
             tokenResponseDTO.setRefreshToken(refreshToken);
 
+            AdminEntity admin = adminRepository.findById(admno)
+                    .orElseThrow(() -> AdminExceptions.ADMIN_NOT_FOUND.get());
+            tokenResponseDTO.setAdmid(admin.getAdmid());
+            tokenResponseDTO.setAdmname(admin.getAdmname());
+            tokenResponseDTO.setAdmrole(admin.getAdmrole());
+
             return ResponseEntity.ok(tokenResponseDTO);
 
         } catch(ExpiredJwtException ex) {
@@ -117,6 +125,12 @@ public class TokenController {
                 tokenResponseDTO.setRefreshToken(newRefreshToken);
                 tokenResponseDTO.setAdmno(admno);
 
+                AdminEntity admin = adminRepository.findById(admno)
+                        .orElseThrow(() -> AdminExceptions.ADMIN_NOT_FOUND.get());
+                tokenResponseDTO.setAdmid(admin.getAdmid());
+                tokenResponseDTO.setAdmname(admin.getAdmname());
+                tokenResponseDTO.setAdmrole(admin.getAdmrole());
+
                 return ResponseEntity.ok(tokenResponseDTO);
 
             } catch(ExpiredJwtException ex2) {
@@ -132,10 +146,16 @@ public class TokenController {
         String accessToken = jwtUtil.createToken(claimMap, 0);
         String refreshToken = jwtUtil.createToken(claimMap, 0);
 
+        AdminEntity admin = adminRepository.findById(admno)
+                .orElseThrow(() -> AdminExceptions.ADMIN_NOT_FOUND.get());
+
         TokenResponseDTO tokenResponseDTO = new TokenResponseDTO();
         tokenResponseDTO.setAccessToken(accessToken);
         tokenResponseDTO.setRefreshToken(refreshToken);
         tokenResponseDTO.setAdmno(admno);
+        tokenResponseDTO.setAdmid(admin.getAdmid());
+        tokenResponseDTO.setAdmname(admin.getAdmname());
+        tokenResponseDTO.setAdmrole(admin.getAdmrole());
 
         return ResponseEntity.ok(tokenResponseDTO);
     }

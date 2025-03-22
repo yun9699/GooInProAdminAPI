@@ -16,6 +16,5 @@ public class MongoConfig {
 
         MongoClient mongoClient = MongoClients.create(mongoUri);
         return new MongoTemplate(mongoClient, "gooinprochatdb");
-
     }
 }

@@ -20,7 +20,7 @@ public class ChatRoomSearchImpl extends QuerydslRepositorySupport implements Cha
     @Override
     public ChatRoomGetDTO GetRoomNumber(Long eno) {
 
-
+        log.info(eno);
         log.info("6666666666666");
         QChatRoomEntity chatroom = QChatRoomEntity.chatRoomEntity;
         JPQLQuery<ChatRoomEntity> query = from(chatroom);
@@ -34,6 +34,7 @@ public class ChatRoomSearchImpl extends QuerydslRepositorySupport implements Cha
 
         ChatRoomGetDTO chatRoomGet = dtojpqlQuery.fetchOne();
 
+        log.info(chatRoomGet);
 
         return chatRoomGet;
     }

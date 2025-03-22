@@ -25,9 +25,8 @@ public class ChatController {
 
     // 채팅 리스트 반환
     @GetMapping("/chat")
-    public ResponseEntity<List<ChatEntity>> getChatMessages(@RequestParam String sender, @RequestParam String receiver) {
-        log.info("getChatMessages called for sender: {} and receiver: {}", sender, receiver);
-        List<ChatEntity> chatEntities = chatService.getMessage(sender, receiver);
+    public ResponseEntity<List<ChatEntity>> getChatMessages(@RequestParam String roomId) {
+        List<ChatEntity> chatEntities = chatService.getMessage(roomId);
         return ResponseEntity.ok().body(chatEntities);
     }
 
@@ -36,7 +35,7 @@ public class ChatController {
     public ResponseEntity<Void> receiveMessage(@RequestBody ChatMessageDTO chat) {
         // 메시지를 해당 채팅방 구독자들에게 전송
         Long roomId = Long.parseLong(chat.getRoomId());
-        template.convertAndSend("/sub/chatroom/" + roomId, chat);
+        template.convertAndSend("/sub/chatroom/" + roomId, chat); // 해당 채팅방에 구족중인 클라이언트에게 메시지 전달
         log.info("Sent message: {}", chat);
         return ResponseEntity.ok().build();
     }

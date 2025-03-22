@@ -137,4 +137,6 @@ public class ComplaintsSearchImpl extends QuerydslRepositorySupport implements C
                 .build();
     }
 
+
+
 }
